@@ -15,13 +15,13 @@ RUN addgroup -g ${GID} ${GROUP} \
 WORKDIR ${WORK_DIR}
 ADD requirements.txt ${WORK_DIR}
 
-RUN apk --update add --no-cache gcc python3-dev musl-dev libffi-dev postgresql-dev mariadb-dev tzdata \
-  && echo "Asia/Shanghai" > /etc/timezone
-
-RUN pip install uwsgi mysqlclient \
-  && pip install -r requirements.txt
-
-RUN apk del gcc python3-dev musl-dev libffi-dev postgresql-dev mariadb-dev tzdata \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+  && apk --update add --no-cache --virtual .build-deps gcc python3-dev musl-dev libffi-dev mariadb-dev postgresql-dev tzdata \
+  && apk add --update --no-cache mariadb-connector-c-dev \
+  && pip install uwsgi mysqlclient -i https://pypi.tuna.tsinghua.edu.cn/simple \
+  && pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple \
+  && echo "Asia/Shanghai" > /etc/timezone \
+  && apk del .build-deps \
   && rm -rf /var/cache/apk/*
 
 USER ${UID}

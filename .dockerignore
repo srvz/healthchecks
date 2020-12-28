@@ -7,5 +7,5 @@ hc.sqlite
 .vscode
 hc/local_settings.py
 static-collected
-Base.dockerfile
+*.dockerfile
 Dockerfile
