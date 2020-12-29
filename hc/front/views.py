@@ -1910,3 +1910,6 @@ def add_linenotify_complete(request):
 
 
 # Forks: add custom views after this line
+
+def stats(request):
+    return render(request, "front/stats.html", {})

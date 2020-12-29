@@ -9,3 +9,4 @@ hc/local_settings.py
 static-collected
 *.dockerfile
 Dockerfile
+backup
