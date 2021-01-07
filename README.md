@@ -41,6 +41,6 @@ docker build -t srvz/healthchecks:v1.18 .
 ```
 npm i node-zookeeper-client healthchecks-io-client
 mkdir tmp
-cp script/conf.example.js conf.js
+cp script/conf.example.js tmp/conf.js
 node script/create-checks.js tmp/conf.example.js
 ```
