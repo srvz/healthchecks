@@ -11,9 +11,9 @@ pip install -r requirements.txt
 ```
 # 初始化数据库
 ./manage.py migrate
-# 创建管理员账户
+# 创建管理员账户，可创建多个
 ./manage.py createsuperuser
-# 运行
+# 运行，调试时使用此方式
 ./manage.py runserver
 ```
 
@@ -30,3 +30,17 @@ docker build -f Base.dockerfile -t srvz/healthchecks:base .
 docker build -t srvz/healthchecks:v1.18 .
 ```
 
+## 运行
+
+参考 `/script/deploy.sh`
+
+## 根据配置生成条目，同时同步到 zookeeper，未配置 zookeeper 地址则不同步
+
+参考 `script/create-checks.js` `script/conf.example.js`
+
+```
+npm i node-zookeeper-client healthchecks-io-client
+mkdir tmp
+cp script/conf.example.js conf.js
+node script/create-checks.js tmp/conf.example.js
+```
